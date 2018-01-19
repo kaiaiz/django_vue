@@ -41,6 +41,9 @@ class GoodsCategoryBrand(models.Model):
     """
     品牌名
     """
+    category = models.ForeignKey(
+        GoodsCategory, null=True, blank=True,
+        verbose_name=u"商品类别")
     name = models.CharField(
         default="", max_length=30, verbose_name=u"品牌名",
         help_text="品牌名")
@@ -92,6 +95,13 @@ class Goods(models.Model):
         default=False, verbose_name=u"是否新品")
     is_hot = models.BooleanField(
         default=False, verbose_name=u"是否热销")
+
+    class Meta:
+        verbose_name = u"商品"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 class GoodsImage(models.Model):
