@@ -36,6 +36,9 @@ class GoodsCategory(models.Model):
         verbose_name = u"商品类别"
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class GoodsCategoryBrand(models.Model):
     """

@@ -18,6 +18,10 @@ import xadmin
 from django.conf.urls import url, include
 #from django.contrib import admin
 from xadmin.plugins import xversion
+from django.views.static import serve
+from rest_framework.authtoken import views
+
+from .settings import MEDIA_ROOT
 
 
 xversion.register_models()
@@ -26,4 +30,11 @@ xadmin.autodiscover()
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^admin/', include(xadmin.site.urls)),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+
+    #goods list
+    url(r'^goods/', include('goods.urls', namespace="goods")),
+    url(r'^api/', include('api.urls', namespace="api")),
+    url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^api-token-auth/', views.obtain_auth_token),
 ]
