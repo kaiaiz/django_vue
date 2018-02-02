@@ -20,6 +20,7 @@ from django.conf.urls import url, include
 from xadmin.plugins import xversion
 from django.views.static import serve
 from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 
 from .settings import MEDIA_ROOT
 
@@ -34,7 +35,11 @@ urlpatterns = [
 
     #goods list
     url(r'^goods/', include('goods.urls', namespace="goods")),
+    url(r'^users/', include('users.urls', namespace="users")),
     url(r'^api/', include('api.urls', namespace="api")),
     url(r'^api-auth/', include('rest_framework.urls')),
-    url(r'^api-token-auth/', views.obtain_auth_token),
+    #drt
+    #url(r'^api-token-auth/', views.obtain_auth_token),
+    #jwt
+    url(r'^api-token-auth/', obtain_jwt_token),
 ]

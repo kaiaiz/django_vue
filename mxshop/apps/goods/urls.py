@@ -11,6 +11,7 @@ router.register(r'list', views.GoodsListViewSet)
 router.register(r'category', views.CategoryViewSet, base_name="categorys")
 
 
+
 urlpatterns = [
     url(r'^', include(router.urls)),
 ]
