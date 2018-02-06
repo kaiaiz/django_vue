@@ -45,3 +45,5 @@ class CategoryViewSet(mixins.ListModelMixin,
     queryset = GoodsCategory.objects.filter(category_type=1)
     serializer_class = CategorySerializer
     filter_backends = (DjangoFilterBackend,)
+
+

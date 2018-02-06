@@ -16,21 +16,24 @@ User = get_user_model()
 
 class UserRegSerializer(serializers.ModelSerializer):
     code = serializers.CharField(required=True, write_only=True,
-                                 max_length=4, min_length=4)
+                                 max_length=4, min_length=4,
+                                 help_text=u"验证码", label=u"验证码")
     username = serializers.CharField(required=True, allow_blank=False,
+                                     help_text=u"用户名", label=u"用户名",
                                      validators=[UniqueValidator(queryset=User.objects.all(),
                                                                  message="用户已存在le")])
     password = serializers.CharField(
         style={'input_type': 'password'},
         label='密码',
-        write_only=True
+        write_only=True,
+        help_text=u"密码"
     )
 
-    def create(self, validated_data):
-        user = super(UserRegSerializer, self).create(validated_data=validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+#    def create(self, validated_data):
+#        user = super(UserRegSerializer, self).create(validated_data=validated_data)
+#        user.set_password(validated_data['password'])
+#        user.save()
+#        return user
 
     def validate_code(self, code):
         verify_records = VerifyCode.objects.filter(mobile=self.initial_data["username"]).order_by("-add_time")
@@ -54,3 +57,14 @@ class UserRegSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("username", "code", "mobile", "password")
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    """
+    用户详情序列化
+    """
+    class Meta:
+        model = User
+        fields = ("username", "birthday", "gender", "mobile",
+                  "email")
+

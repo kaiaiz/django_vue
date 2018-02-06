@@ -19,7 +19,8 @@ class UserProfile(AbstractUser):
     birthday = models.DateField(
         null=True, blank=True, verbose_name=u"出生年月")
     mobile = models.CharField(
-        null=True, blank=True, max_length=11, verbose_name=u"手机号码")
+        null=True, blank=True, max_length=11, verbose_name=u"手机号码",
+        help_text="手机号码")
     gender = models.CharField(max_length=6, choices=gender_choices,
         default="male", verbose_name=u"性别")
     email = models.CharField(
