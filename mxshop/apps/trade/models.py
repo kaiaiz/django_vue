@@ -4,6 +4,7 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from goods.models import Goods
 
@@ -55,7 +56,7 @@ class OrderInfo(models.Model):
         choices=ORDER_STATUS, max_length=10, verbose_name=u"订单状态")
     post_script = models.CharField(max_length=11, verbose_name=u"订单留言")
     order_mount = models.FloatField(
-        default=0.0, verbose_name=u"订单留言")
+        default=0.0, verbose_name=u"订单总额")
     pay_time = models.DateTimeField(
         null=True, blank=True, verbose_name=u"支付时间")
 
@@ -67,7 +68,7 @@ class OrderInfo(models.Model):
     singer_mobile = models.CharField(
         max_length=11, verbose_name=u"联系电话")
     add_time = models.DateTimeField(
-        default=datetime.now, verbose_name=u"添加时间")
+        default=timezone.now, verbose_name=u"添加时间")
 
     class Meta:
         verbose_name = u"订单"
@@ -88,7 +89,7 @@ class OrderGoods(models.Model):
     good_nums = models.IntegerField(
         default=0, verbose_name=u"商品数量")
     add_time = models.DateTimeField(
-        default=datetime.now, verbose_name=u"添加时间")
+        default=timezone.now, verbose_name=u"添加时间")
 
     class Meta:
         verbose_name = u"订单商品"
