@@ -9,7 +9,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import ShoppingCart, OrderInfo, OrderGoods
 from .serializers import (ShoppingCartSerializer,
                           ShoppingCartDetailSerializer,
-                          OrderSerializer)
+                          OrderSerializer,
+                          OrderDetailSerializer)
 from utils.permissions import IsOwnerOrReadOnly
 
 
@@ -45,6 +46,7 @@ class ShoppingCartViewset(viewsets.ModelViewSet):
 class OrderViewset(mixins.ListModelMixin,
                    mixins.CreateModelMixin,
                    mixins.DestroyModelMixin,
+                   mixins.RetrieveModelMixin,
                    viewsets.GenericViewSet):
     """
     订单管理
@@ -63,6 +65,11 @@ class OrderViewset(mixins.ListModelMixin,
 
     def get_queryset(self):
         return OrderInfo.objects.filter(user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return OrderDetailSerializer
+        return OrderSerializer
 
     def perform_create(self, serializer):
         order = serializer.save()

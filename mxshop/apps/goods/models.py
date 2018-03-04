@@ -46,7 +46,7 @@ class GoodsCategoryBrand(models.Model):
     """
     category = models.ForeignKey(
         GoodsCategory, null=True, blank=True,
-        verbose_name=u"商品类别")
+        verbose_name=u"商品类别", related_name="brands")
     name = models.CharField(
         default="", max_length=30, verbose_name=u"品牌名",
         help_text="品牌名")
@@ -105,6 +105,20 @@ class Goods(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class IndexAd(models.Model):
+    category = models.ForeignKey(
+        GoodsCategory, verbose_name=u"商品类别")
+    goods = models.ForeignKey(Goods, related_name="goods")
+
+    class Meta:
+        verbose_name = u"商品广告"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.goods.name
+
 
 
 class GoodsImage(models.Model):

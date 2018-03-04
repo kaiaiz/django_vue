@@ -83,7 +83,8 @@ class OrderGoods(models.Model):
     订单的商品详情
     """
     order = models.ForeignKey(
-        OrderInfo, verbose_name=u"订单信息")
+        OrderInfo, verbose_name=u"订单信息",
+        related_name="goods")
     goods = models.ForeignKey(
         Goods, verbose_name=u"商品")
     good_nums = models.IntegerField(

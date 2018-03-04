@@ -1,3 +1,4 @@
+#encoding=utf-8
 from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
 
@@ -9,6 +10,9 @@ from .filters import GoodsFilter
 router = DefaultRouter()
 router.register(r'list', views.GoodsListViewSet)
 router.register(r'category', views.CategoryViewSet, base_name="categorys")
+router.register(r'banner', views.BannerViewSet, base_name="banner")
+#首页商品系列数据
+router.register(r'indexgoods', views.IndexCategoryViewSet, base_name="index_goods")
 
 
 
